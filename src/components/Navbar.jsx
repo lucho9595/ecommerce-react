@@ -11,13 +11,14 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        navigate('/')
+        localStorage.removeItem('isLoggedIn');
+        navigate('/');
     };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link to='/'>
+                <Link to='/home'>
                     <img src={logo} className="navbar-brand" id={style.logo} />
                 </Link>
                 <button
@@ -35,7 +36,9 @@ export const Navbar = () => {
                     <div className="d-flex me-2">
                         {user ? <>
                             <p>Bienvenido, {user.email}!</p>
-                            <button onClick={handleLogout}>Logout</button>
+                            <Link onClick={handleLogout} className={style.btn3}>
+                                Logout
+                            </Link>
                         </> : <>
                             <Link to="/signin" className={style.btn1}>
                                 Signin

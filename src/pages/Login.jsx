@@ -19,6 +19,7 @@ export const Login = () => {
                 const userCredential = await signInWithEmailAndPassword(auth, input.email, input.password);
                 const user = userCredential.user;
                 localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('isLoggedIn', 'true');
                 alert('Login user successfully!');
                 navigate('/');
             }
@@ -37,6 +38,7 @@ export const Login = () => {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+            localStorage.setItem('isLoggedIn', 'true');
             console.log('Usuario autenticado con Google:', user);
             alert('Login user successfully!');
             navigate('/');
@@ -50,6 +52,7 @@ export const Login = () => {
             const result = await signInWithPopup(auth, githubProvider);
             const user = result.user;
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+            localStorage.setItem('isLoggedIn', 'true');
             console.log('Usuario autenticado con GitHub:', user);
             alert('Login user successfully!');
             navigate('/');

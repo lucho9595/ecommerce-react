@@ -28,6 +28,7 @@ export const SignIn = () => {
                 };
                 alert('Registered user successfully!');
                 localStorage.setItem('user', JSON.stringify(userData));
+                localStorage.setItem('isLoggedIn', 'true');
                 navigate('/');
             }
         } catch (error) {
@@ -45,6 +46,7 @@ export const SignIn = () => {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+            localStorage.setItem('isLoggedIn', 'true');
             navigate('/')
         } catch (error) {
             console.error('Error logging in with Google:', error.message);
@@ -57,6 +59,7 @@ export const SignIn = () => {
             const result = await signInWithPopup(auth, githubProvider);
             const user = result.user;
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+            localStorage.setItem('isLoggedIn', 'true');
             navigate('/')
         } catch (error) {
             console.error('Error logging in with GitHub:', error.message);
