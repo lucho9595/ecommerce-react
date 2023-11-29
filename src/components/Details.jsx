@@ -3,10 +3,11 @@ import { getProduct } from '../api/fetchData';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styles from '../style/Details.module.css';
+import { Checkout } from './Checkout';
 
 export const Details = () => {
     const [product, setProduct] = useState(null);
-    const [click, setClick] = useState(false)
+    const [isModalOpen, setModalOpen] = useState(false);
     const { id } = useParams()
 
     const fetchProduct = async () => {
@@ -22,9 +23,13 @@ export const Details = () => {
         }
     };
 
-    const handleClick = () => {
-        setClick(!click)
-    }
+    const handleOpenModal = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
 
     useEffect(() => {
         fetchProduct();
@@ -45,10 +50,12 @@ export const Details = () => {
                     <p>Stock: {product.rating.count}</p>
                     <p>Rate: {product.rating.rate}</p>
                     <p>Sku: 56632215594515</p>
-                    <Link to={`/checkout/${product.id}`}>
-                        <button onClick={handleClick} className={styles.btn}>Buy</button>
-                    </Link>
-                    <p className={styles.thanks}>{click === true ? "Gracias por su compra" : null}</p>
+                    <button className={styles.btn} onClick={handleOpenModal}>Buy</button>
+                    <Checkout
+                        isOpen={isModalOpen}
+                        onClose={handleCloseModal}
+                        productDetails={product}
+                    />
                 </div>
             }
         </div >
