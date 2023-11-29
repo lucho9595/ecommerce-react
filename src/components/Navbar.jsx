@@ -2,8 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/shoppingcart.png';
 import style from '../style/Navbar.module.css';
+import { getUserFromLocalStorage } from '../utils/LocalStorage.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
+    const user = getUserFromLocalStorage();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        navigate('/')
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -23,12 +33,18 @@ export const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <div className="d-flex me-2">
-                        <Link to="/signin" className={style.btn1}>
-                            Signin
-                        </Link>
-                        <Link to="/login" className={style.btn2}>
-                            Login
-                        </Link>
+                        {user ? <>
+                            <p>Bienvenido, {user.name}!</p>
+                            <button onClick={handleLogout}>Logout</button>
+                        </> : <>
+                            <Link to="/signin" className={style.btn1}>
+                                Signin
+                            </Link>
+                            <Link to="/login" className={style.btn2}>
+                                Login
+                            </Link>
+                        </>
+                        }
                     </div>
                 </div>
             </div>

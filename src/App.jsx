@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-import { SignIn } from "./pages/SignIn";
+import { SignIn } from "./pages/Signin";
 import { Pagenotfound } from "./pages/Pagenotfound";
 import { Details } from "./components/Details";
 
