@@ -10,9 +10,9 @@ export const SignIn = () => {
         name: '',
         lastName: '',
     });
-    console.log(input)
     const navigate = useNavigate();
 
+    //registrar usuario
     const handleSignUp = async () => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, input.email, input.password);
@@ -30,6 +30,41 @@ export const SignIn = () => {
         }
     };
 
+    //registrarse con gmail
+    const handleSignInWithGoogle = async () => {
+        try {
+            // Iniciar sesión con Google
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+
+            // Guardar información del usuario en localStorage
+            localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+
+            // Redirigir al usuario a la página de inicio o a otra página después del inicio de sesión
+            navigate('/')
+
+        } catch (error) {
+            console.error('Error al iniciar sesión con Google:', error.message);
+        }
+    };
+
+    //registrarse con github
+    const handleSignInWithGithub = async () => {
+        try {
+            // Iniciar sesión con GitHub
+            const result = await signInWithPopup(auth, githubProvider);
+            const user = result.user;
+
+            // Guardar información del usuario en localStorage
+            localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
+
+            // Redirigir al usuario a la página de inicio o a otra página después del inicio de sesión
+            navigate('/')
+
+        } catch (error) {
+            console.error('Error al iniciar sesión con GitHub:', error.message);
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!input.name || !input.lastName || !input.email || !input.password) {
@@ -98,6 +133,8 @@ export const SignIn = () => {
                     Sign In
                 </button>
             </form>
+            <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
+            <button onClick={handleSignInWithGithub}>Sign In with GitHub</button>
         </div>
     )
 }

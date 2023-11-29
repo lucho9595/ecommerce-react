@@ -34,7 +34,7 @@ export const Navbar = () => {
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <div className="d-flex me-2">
                         {user ? <>
-                            <p>Bienvenido, {user.name}!</p>
+                            <p>Bienvenido, {user.email}!</p>
                             <button onClick={handleLogout}>Logout</button>
                         </> : <>
                             <Link to="/signin" className={style.btn1}>
