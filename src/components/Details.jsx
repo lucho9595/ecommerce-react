@@ -45,10 +45,12 @@ export const Details = () => {
                     <p>Stock: {product.rating.count}</p>
                     <p>Rate: {product.rating.rate}</p>
                     <p>Sku: 56632215594515</p>
-                    <button onClick={handleClick} className={styles.btn}>Add Cart</button>
+                    <Link to={`/checkout/${product.id}`}>
+                        <button onClick={handleClick} className={styles.btn}>Buy</button>
+                    </Link>
                     <p className={styles.thanks}>{click === true ? "Gracias por su compra" : null}</p>
                 </div>
             }
-        </div>
+        </div >
     );
 }

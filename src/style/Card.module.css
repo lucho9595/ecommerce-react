@@ -1,0 +1,21 @@
+#contain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#containData {
+    width: 100%;
+    /* Asegura que el ancho de #containData sea el 100% del contenedor padre */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Centra el texto en #containData */
+}
+
+#img {
+    max-height: 20vh;
+    max-width: 9vw;
+    margin-top: 15px;
+}

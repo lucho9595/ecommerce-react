@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth, googleProvider, githubProvider } from '../../firebase.js';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const SignIn = () => {
     const [input, setInput] = useState({
@@ -15,71 +15,57 @@ export const SignIn = () => {
     //registrar usuario
     const handleSignUp = async () => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, input.email, input.password);
-            const user = userCredential.user;
-            const userData = {
-                userId: user.uid,
-                email: user.email,
-                name: input.name,
-                lastname: input.lastName
-            };
-            localStorage.setItem('user', JSON.stringify(userData));
-            console.log('User Created!', userData);
+            if (input.password.length < 6) {
+                alert('The password must be at least 6 characters.');
+            } else {
+                const userCredential = await createUserWithEmailAndPassword(auth, input.email, input.password);
+                const user = userCredential.user;
+                const userData = {
+                    userId: user.uid,
+                    email: user.email,
+                    name: input.name,
+                    lastname: input.lastName
+                };
+                alert('Registered user successfully!');
+                localStorage.setItem('user', JSON.stringify(userData));
+                navigate('/');
+            }
         } catch (error) {
-            console.error('Error al registrarse:', error.message);
+            if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+                alert('That email already exists')
+            } else {
+                alert(error.message);
+            }
         }
-    };
+    }
 
-    //registrarse con gmail
+
     const handleSignInWithGoogle = async () => {
         try {
-            // Iniciar sesión con Google
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
-
-            // Guardar información del usuario en localStorage
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
-
-            // Redirigir al usuario a la página de inicio o a otra página después del inicio de sesión
             navigate('/')
-
         } catch (error) {
-            console.error('Error al iniciar sesión con Google:', error.message);
+            console.error('Error logging in with Google:', error.message);
         }
     };
 
     //registrarse con github
     const handleSignInWithGithub = async () => {
         try {
-            // Iniciar sesión con GitHub
             const result = await signInWithPopup(auth, githubProvider);
             const user = result.user;
-
-            // Guardar información del usuario en localStorage
             localStorage.setItem('user', JSON.stringify({ userId: user.uid, email: user.email }));
-
-            // Redirigir al usuario a la página de inicio o a otra página después del inicio de sesión
             navigate('/')
-
         } catch (error) {
-            console.error('Error al iniciar sesión con GitHub:', error.message);
+            console.error('Error logging in with GitHub:', error.message);
         }
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!input.name || !input.lastName || !input.email || !input.password) {
-            alert('Complete all the inputs');
-            return;
-        } else {
-            alert('User Created!');
-            setInput({
-                name: '',
-                lastName: '',
-                email: '',
-                password: '',
-            });
-            navigate('/')
-        }
+        handleSignUp();
     };
 
     return (
@@ -129,12 +115,13 @@ export const SignIn = () => {
                     />
                     <label for="floatingPassword">Password</label>
                 </div>
-                <button type="submit" onClick={handleSignUp}>
+                <button type="submit">
                     Sign In
                 </button>
             </form>
             <button onClick={handleSignInWithGoogle}>Sign In with Google</button>
             <button onClick={handleSignInWithGithub}>Sign In with GitHub</button>
+            <p>Allready have an acount? <Link to="/login">Login now!</Link></p>
         </div>
     )
 }
