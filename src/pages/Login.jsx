@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider, githubProvider } from '../../firebase.js';
 import { useNavigate } from 'react-router-dom';
+import styles from '../style/Login.module.css';
+import { SiGmail } from "react-icons/si";
+import { BsGithub } from "react-icons/bs";
 
 export const Login = () => {
     const [input, setInput] = useState({
@@ -67,8 +70,8 @@ export const Login = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className={styles.container}>
+            <form onSubmit={handleSubmit} className={styles.containerForm}>
                 <div className="form-floating mb-3">
                     <input
                         type="email"
@@ -94,12 +97,12 @@ export const Login = () => {
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div>
-                    <button type='submit'>Login</button>
+                    <button type='submit' className={styles.btn1}>Login</button>
                 </div>
             </form>
-            <button onClick={handleGoogleLogin}>Login with Google</button>
-            <button onClick={handleGitHubLogin}>Login with GitHub</button>
-            <p>New user? <Link to="/signin">Create account!</Link></p>
+            <button onClick={handleGoogleLogin} className={styles.btn2}><SiGmail /> Login with Google</button>
+            <button onClick={handleGitHubLogin} className={styles.btn3}><BsGithub /> Login with GitHub</button>
+            <p>New user? <Link to="/signin" className={styles.login}>Create account!</Link></p>
         </div>
     );
 };

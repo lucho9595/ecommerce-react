@@ -16,7 +16,7 @@ export const Pagenotfound = () => {
                                     Look like you're lost
                                 </h3>
                                 <p>the page you are looking for not avaible!</p>
-                                <a href="/home" className={style.link_404}>Go to Home</a>
+                                <a href="/" className={style.link_404}>Go to Home</a>
                             </div>
                         </div>
                     </div>
