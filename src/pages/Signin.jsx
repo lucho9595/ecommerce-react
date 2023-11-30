@@ -74,6 +74,7 @@ export const SignIn = () => {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit} className={styles.containerForm}>
+                <h3 className="mb-3">Sign In</h3>
                 <div className="form-floating mb-3">
                     <input
                         type="text"
@@ -83,7 +84,7 @@ export const SignIn = () => {
                         value={input.name}
                         name='name'
                     />
-                    <label for="floatingName">Name</label>
+                    <label htmlFor="floatingName">Name</label>
                 </div>
                 <div className="form-floating mb-3">
                     <input
@@ -94,7 +95,7 @@ export const SignIn = () => {
                         value={input.lastName}
                         name='lastName'
                     />
-                    <label for="floatingLastname">Lastname</label>
+                    <label htmlFor="floatingLastname">Lastname</label>
                 </div>
                 <div className="form-floating mb-3">
                     <input
@@ -105,7 +106,7 @@ export const SignIn = () => {
                         value={input.email}
                         name='email'
                     />
-                    <label for="floatingInput">Email address</label>
+                    <label htmlFor="floatingInput">Email address</label>
                 </div>
                 <div className="form-floating">
                     <input
@@ -116,7 +117,7 @@ export const SignIn = () => {
                         value={input.password}
                         name='password'
                     />
-                    <label for="floatingPassword">Password</label>
+                    <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <button type="submit" className={styles.btn1}>
                     Sign In

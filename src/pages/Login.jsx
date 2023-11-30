@@ -72,6 +72,7 @@ export const Login = () => {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit} className={styles.containerForm}>
+                <h3 className="mb-3">Login</h3>
                 <div className="form-floating mb-3">
                     <input
                         type="email"
@@ -97,7 +98,7 @@ export const Login = () => {
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div>
-                    <button type='submit' className={styles.btn1}>Login</button>
+                    <button type='submit' className={styles.btn1}>    Login   </button>
                 </div>
             </form>
             <button onClick={handleGoogleLogin} className={styles.btn2}><SiGmail /> Login with Google</button>

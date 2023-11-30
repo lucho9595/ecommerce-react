@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styles from '../style/Details.module.css';
 import { Checkout } from './Checkout';
+import { Loading } from '../utils/Loading';
 
 export const Details = () => {
     const [product, setProduct] = useState(null);
@@ -37,13 +38,13 @@ export const Details = () => {
 
     return (
         <div className={styles.container}>
-            {product &&
+            {product ? (
                 <div className={styles.containerInfo}>
                     <Link to='/'>
                         <button className={styles.btn}>Go Back</button>
                     </Link>
                     <h3 className={styles.title}>{product.title}</h3>
-                    <div clasName={styles.container}>
+                    <div className={styles.container}>
                         <p>Category: {product.category}</p>
                         <img src={product.image} className={styles.images} />
                         <p>Description: {product.description}</p>
@@ -57,9 +58,12 @@ export const Details = () => {
                             onClose={handleCloseModal}
                             productDetails={product}
                         />
-
                     </div>
+                </div>) : (
+                <div>
+                    <Loading />
                 </div>
+            )
             }
         </div >
     );
